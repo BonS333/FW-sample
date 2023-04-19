@@ -90,7 +90,23 @@ void Game::Render()
     // TODO: Add your rendering code here.
     context;
 
+    m_debugFont->AddString(L"Hello,World",DirectX::SimpleMath::Vector2(0.0f,0.0f),Colors::Red,1.0f);
+    m_debugFont->AddString(L"Hello,World", DirectX::SimpleMath::Vector2(0.0f, 10.0f), Colors::Orange, 1.0f);
+    m_debugFont->AddString(L"Hello,World", DirectX::SimpleMath::Vector2(0.0f, 20.0f), Colors::Yellow, 1.0f);
+    m_debugFont->AddString(L"Hello,World", DirectX::SimpleMath::Vector2(0.0f, 30.0f), Colors::LightGreen, 1.0f);
+    m_debugFont->AddString(L"Hello,World", DirectX::SimpleMath::Vector2(0.0f, 40.0f), Colors::SkyBlue, 1.0f);
+    m_debugFont->AddString(L"Hello,World", DirectX::SimpleMath::Vector2(0.0f, 50.0f), Colors::Blue, 1.0f);
+    m_debugFont->AddString(L"Hello,World", DirectX::SimpleMath::Vector2(0.0f, 60.0f), Colors::Purple, 1.0f);
+
+    std::wostringstream oss;
+    oss << "fps" << m_timer.GetFramesPerSecond();
+    m_debugFont->AddString(oss.str().c_str(), SimpleMath::Vector2(100.0f, 100.0f));
+
     m_deviceResources->PIXEndEvent();
+
+    m_debugFont->Render(m_state.get());
+
+
 
     // Show the new frame.
     m_deviceResources->Present();
@@ -178,14 +194,26 @@ void Game::CreateDeviceDependentResources()
 {
     auto device = m_deviceResources->GetD3DDevice();
 
+    auto context = m_deviceResources->GetD3DDeviceContext();
+
     // TODO: Initialize device dependent objects here (independent of window size).
     device;
+
+
+    m_state = std::make_unique<CommonStates>(device);
+
+    //デバッグ用文字列表示オブジェクトの作成
+    m_debugFont = std::make_unique<Imase::DebugFont>(device,context,L"Resources/Font/SegoeUI_18.spritefont");
+
+
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
 void Game::CreateWindowSizeDependentResources()
 {
     // TODO: Initialize windows-size dependent objects here.
+
+
 }
 
 void Game::OnDeviceLost()
