@@ -54,10 +54,21 @@ void Game::Tick()
 // Updates the world.
 void Game::Update(DX::StepTimer const& timer)
 {
+
     float elapsedTime = float(timer.GetElapsedSeconds());
 
     // TODO: Add your game logic here.
     elapsedTime;
+
+    //追加
+    auto kb = Keyboard::Get().GetState();
+    //キーボードステートトラッカーの更新
+    m_Keyboardtracker.Update(kb);
+
+    auto Ms = Mouse::Get().GetState();
+
+    m_Mousetracker.Update(Ms);
+
 }
 #pragma endregion
 
